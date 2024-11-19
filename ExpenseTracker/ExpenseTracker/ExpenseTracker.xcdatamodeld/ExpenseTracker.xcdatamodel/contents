@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24A335" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AppSettings" representedClassName="AppSettings" syncable="YES" codeGenerationType="class">
+        <attribute name="profileImage" optional="YES" attributeType="Binary"/>
+        <attribute name="selectedColorHex" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CategoriesEntity" representedClassName="CategoriesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="deletedFlag" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="expensesRel" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ExpensesEntity" inverseName="categoryRel" inverseEntity="ExpensesEntity"/>
+        <relationship name="userCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserEntity" inverseName="userCategories" inverseEntity="UserEntity"/>
+    </entity>
+    <entity name="ExpensesEntity" representedClassName="ExpensesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="expenseDescription" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="categoryRel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoriesEntity" inverseName="expensesRel" inverseEntity="CategoriesEntity"/>
+        <relationship name="userExpense" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserEntity" inverseName="userExpenses" inverseEntity="UserEntity"/>
+    </entity>
+    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="UserEntity" representedClassName="UserEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="isLoggedIn" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="password" optional="YES" attributeType="String"/>
+        <attribute name="username" optional="YES" attributeType="String"/>
+        <relationship name="userCategories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CategoriesEntity" inverseName="userCategory" inverseEntity="CategoriesEntity"/>
+        <relationship name="userExpenses" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExpensesEntity" inverseName="userExpense" inverseEntity="ExpensesEntity"/>
+    </entity>
+</model>
